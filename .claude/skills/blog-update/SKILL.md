@@ -87,21 +87,14 @@ Triggers: *"ship it"*, *"push"*, *"deploy"*, *"commit and push"*
 
 ---
 
-## State of the deploy pipeline (as of 2026-04-12)
+## State of the deploy pipeline
 
-- ❌ Git repo not initialized
-- ❌ No GitHub remote
-- ❌ Cloudflare Pages project not created
-- ✅ `@astrojs/cloudflare` adapter installed
-- ✅ `wrangler.jsonc` in place
+- ✅ Git repo initialized, remote: `git@github.com:brenk28/thinkrenk.git`
+- ✅ Cloudflare Workers Build wired up (unified Workers Builds flow, not classic Pages)
+- ✅ Production URL: https://thinkrenk.brenk828.workers.dev
+- ⏳ Custom domain `thinkrenk.com` not yet attached
 
-**Until the remote and Pages project exist, recipe 6 cannot run.** If the user asks to ship before that, walk them through the one-time setup instead:
-
-1. `cd C:\projects\blog && git init && git add . && git commit -m "Initial commit"`
-2. User creates a new repo on GitHub (can't be automated without gh auth).
-3. `git remote add origin <url> && git branch -M main && git push -u origin main`
-4. In Cloudflare dashboard: Pages → Connect to Git → pick the repo. Build command `npm run build`, output `dist`, framework preset Astro.
-5. Update `CLAUDE.md` — flip the deploy status, record the production URL.
+Every push to `main` triggers an automatic Cloudflare build (`npm install && npm run build` → `npx wrangler deploy`). Never force-push `main`. For `NODE_VERSION=22` and other env tweaks, use the Cloudflare dashboard → project → Settings → Variables.
 
 ---
 

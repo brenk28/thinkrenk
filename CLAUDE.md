@@ -73,13 +73,16 @@ npm run preview   # preview the built site
 
 ## Deploy
 
-Target: **Cloudflare Pages**. `wrangler.jsonc` and `@astrojs/cloudflare` are already in `package.json`, but the Pages project is **not yet wired up** and there is **no git remote** as of 2026-04-12. When the user is ready, the steps are:
+Target: **Cloudflare Workers** (unified Workers Builds flow, not classic Pages) via `@astrojs/cloudflare`.
 
-1. `git init` (if needed) and create the GitHub repo
-2. Connect the repo to a Cloudflare Pages project (build command `npm run build`, output `dist`)
-3. Document the production URL here once it exists
+- **Repo:** `git@github.com:brenk28/thinkrenk.git` (main branch is production)
+- **Production URL:** https://thinkrenk.brenk828.workers.dev
+- **Custom domain:** `thinkrenk.com` — not yet attached, planned
+- **Build command:** `npm install && npm run build`
+- **Deploy command:** `npx wrangler deploy`
+- **Env:** `NODE_VERSION=22`
 
-Until then, don't try to push or deploy.
+Pushing to `main` triggers an automatic Cloudflare build + deploy. Never force-push `main`.
 
 ## House rules
 
