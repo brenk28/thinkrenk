@@ -1,0 +1,60 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags?: string[];
+}
+const { href, title, description, pubDate, tags = [] } = Astro.props;
+const formatted = pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<a class="post-card card" href={href}>
+  <div class="post-card__meta">
+    <time datetime={pubDate.toISOString()}>{formatted}</time>
+    {tags.length > 0 && <span class="post-card__dot">•</span>}
+    {tags.slice(0, 3).map((t) => <span class="post-card__tag">#{t}</span>)}
+  </div>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <span class="post-card__more">Read →</span>
+</a>
+
+<style>
+  .post-card {
+    display: block;
+    color: inherit;
+    border-bottom: 3px solid var(--c-ink);
+  }
+  .post-card:hover h3 { color: var(--c-orange); }
+  .post-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--c-ink-soft);
+    margin-bottom: 0.6rem;
+  }
+  .post-card__dot { color: var(--c-muted); }
+  .post-card__tag { color: var(--c-blue); }
+  .post-card h3 {
+    margin: 0 0 0.4rem;
+    transition: color 140ms ease;
+  }
+  .post-card p {
+    color: var(--c-ink-soft);
+    margin: 0 0 0.8rem;
+  }
+  .post-card__more {
+    font-family: var(--font-display);
+    color: var(--c-orange);
+    font-size: 0.95rem;
+  }
+</style>

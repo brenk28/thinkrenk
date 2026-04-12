@@ -1,0 +1,43 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  activePath?: string;
+}
+
+const {
+  title,
+  description = 'Bill — builder of retro-flavored games, tools, and odd little web things.',
+  activePath,
+} = Astro.props;
+
+const fullTitle = title === 'Home' ? 'Bill — Projects & Blog' : `${title} — Bill`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <ClientRouter />
+  </head>
+  <body>
+    <SiteHeader activePath={activePath || Astro.url.pathname} />
+    <main class="site-main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="2" fill="#073642" opacity="0.15"/>
+    </pattern>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fdf6e3"/>
+      <stop offset="100%" stop-color="#eee8d5"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#dots)"/>
+  <g transform="translate(800 450)" text-anchor="middle" font-family="monospace">
+    <text y="-60" font-size="140" font-weight="700" fill="#073642">STORY</text>
+    <text y="90" font-size="140" font-weight="700" fill="#cb4b16">GENERATOR</text>
+    <text y="200" font-size="42" fill="#586e75">// Next.js + LLM prompts</text>
+  </g>
+  <rect x="40" y="40" width="1520" height="820" fill="none" stroke="#073642" stroke-width="10"/>
+</svg>

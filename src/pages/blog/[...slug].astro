@@ -1,0 +1,82 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate, heroImage, tags } = post.data;
+const formatted = pubDate.toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+
+<BaseLayout title={title} description={description} activePath="/blog">
+  <article class="post">
+    <div class="container container--narrow">
+      <p class="post__crumb"><a href="/blog">← All posts</a></p>
+      <header class="post__head">
+        <div class="post__meta">
+          <time datetime={pubDate.toISOString()}>{formatted}</time>
+          {updatedDate && <span> · updated {updatedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>}
+        </div>
+        <h1>{title}</h1>
+        <p class="post__lede">{description}</p>
+        {tags.length > 0 && (
+          <ul class="post__tags">
+            {tags.map((t) => <li>#{t}</li>)}
+          </ul>
+        )}
+      </header>
+      {heroImage && (
+        <img class="post__hero" src={heroImage} alt="" />
+      )}
+      <div class="prose post__body">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .container--narrow { max-width: 760px; }
+  .post__crumb {
+    font-family: var(--font-display);
+    margin-bottom: 1.5rem;
+  }
+  .post__meta {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--c-ink-soft);
+    margin-bottom: 0.6rem;
+  }
+  .post__head h1 { margin: 0 0 0.75rem; }
+  .post__lede {
+    font-size: 1.2rem;
+    color: var(--c-ink-soft);
+    margin-bottom: 1rem;
+  }
+  .post__tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0 0 2rem;
+  }
+  .post__tags li {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--c-blue);
+  }
+  .post__hero {
+    border: 3px solid var(--c-ink);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin: 1.5rem 0 2.5rem;
+  }
+</style>

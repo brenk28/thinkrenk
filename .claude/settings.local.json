@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp \"C:/projects/lmap/assets/images/title_screen/title screen.png\" C:/projects/blog/public/images/projects/lmap/hero.png)",
+      "Bash(cp \"C:/projects/lmap/assets/images/backgrounds/empty_sound_stage.png\" C:/projects/blog/public/images/projects/lmap/sound-stage.png)",
+      "Bash(cp \"C:/projects/lmap/assets/images/backgrounds/executive office30s1.png\" C:/projects/blog/public/images/projects/lmap/executive-office.png)",
+      "Bash(cp \"C:/projects/lmap/assets/images/backgrounds/night_club_interior.png\" C:/projects/blog/public/images/projects/lmap/night-club.png)",
+      "Bash(cp \"C:/projects/lmap/assets/images/backgrounds/costume_department.png\" C:/projects/blog/public/images/projects/lmap/costume-dept.png)",
+      "Bash(npm run:*)",
+      "Bash(grep -iE '\\\\.\\(png|jpg|jpeg|webp\\)$')"
+    ]
+  }
+}

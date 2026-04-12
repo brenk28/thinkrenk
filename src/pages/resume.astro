@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<BaseLayout title="Resume" activePath="/resume">
+  <Hero eyebrow="// resume" title="Bill — Software Engineer" lede="Shipping software for 20+ years. Games, web apps, tooling, and the occasional weird experiment." />
+
+  <section class="container site-section">
+    <div class="resume prose">
+      <p class="resume__crumb"><a href="/">← Back home</a></p>
+
+      <h2>About</h2>
+      <p><em>Placeholder — this page is wired up and styled but the content hasn't been filled in yet. Tell Claude what to put here and it'll be updated.</em></p>
+
+      <h2>Experience</h2>
+      <ul>
+        <li><strong>Role · Company</strong> — Year–Year. Short summary of what you did.</li>
+        <li><strong>Role · Company</strong> — Year–Year. Short summary of what you did.</li>
+      </ul>
+
+      <h2>Skills</h2>
+      <p>Languages, frameworks, tools, game engines — the short version.</p>
+
+      <h2>Elsewhere</h2>
+      <ul>
+        <li>GitHub — <em>link TBD</em></li>
+        <li>LinkedIn — <em>link TBD</em></li>
+      </ul>
+
+      <p class="resume__print"><button class="btn" onclick="window.print()">Print ↗</button></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .site-section { margin-top: 2rem; }
+  .resume { max-width: 720px; margin: 0 auto; }
+  .resume__crumb { font-family: var(--font-display); margin-bottom: 1.5rem; }
+  .resume__print { margin-top: 2.5rem; }
+</style>

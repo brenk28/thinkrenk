@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import PostCard from '../components/PostCard.astro';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Home">
+  <Hero
+    eyebrow="// hello, world"
+    title="I build games, tools, and retro-flavored web things."
+    lede="Part software engineer, part tinkerer. Currently making a murder-mystery movie-studio game and a pile of other weird little projects."
+  >
+    <div class="hero-actions">
+      <a class="btn btn--primary" href="/projects">See Projects</a>
+      <a class="btn" href="/blog">Read the Blog</a>
+      <a class="btn" href="/resume">Resume</a>
+    </div>
+  </Hero>
+
+  <section class="container site-section">
+    <div class="section-head">
+      <h2>Featured Projects</h2>
+      <a href="/projects">All projects →</a>
+    </div>
+    <div class="grid grid--3">
+      {projects.map((p) => (
+        <ProjectCard
+          href={`/projects/${p.id}`}
+          title={p.data.title}
+          tagline={p.data.tagline}
+          heroImage={p.data.heroImage}
+          tech={p.data.tech}
+          status={p.data.status}
+        />
+      ))}
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="container site-section">
+      <div class="section-head">
+        <h2>From the Blog</h2>
+        <a href="/blog">All posts →</a>
+      </div>
+      <div class="grid grid--3">
+        {posts.map((post) => (
+          <PostCard
+            href={`/blog/${post.id}`}
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            tags={post.data.tags}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+  .site-section {
+    margin-top: 4rem;
+  }
+  .grid {
+    display: grid;
+    gap: 1.75rem;
+  }
+  .grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @media (max-width: 900px) {
+    .grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 620px) {
+    .grid--3 { grid-template-columns: 1fr; }
+  }
+</style>

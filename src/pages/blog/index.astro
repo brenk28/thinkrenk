@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import PostCard from '../../components/PostCard.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Blog" activePath="/blog">
+  <Hero
+    eyebrow="// field dispatches"
+    title="The blog."
+    lede="Notes on building things, retro game design, agentic workflows, and whatever else gets stuck in my head."
+  />
+
+  <section class="container site-section">
+    {posts.length === 0 ? (
+      <div class="empty card">
+        <p class="empty__mark">◇</p>
+        <h2>No posts yet.</h2>
+        <p>First transmission incoming soon.</p>
+      </div>
+    ) : (
+      <div class="post-list">
+        {posts.map((post) => (
+          <PostCard
+            href={`/blog/${post.id}`}
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            tags={post.data.tags}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .site-section { margin-top: 2rem; }
+  .post-list {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  @media (max-width: 720px) {
+    .post-list { grid-template-columns: 1fr; }
+  }
+  .empty {
+    text-align: center;
+    padding: 3rem 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .empty__mark {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--c-orange);
+    margin: 0 0 0.5rem;
+  }
+  .empty h2 { margin: 0 0 0.5rem; }
+</style>

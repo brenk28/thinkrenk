@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Projects" activePath="/projects">
+  <Hero
+    eyebrow="// projects"
+    title="The stuff I'm building."
+    lede="Games, web apps, tools, experiments. Some shipped, some in progress, all mine."
+  />
+
+  <section class="container site-section">
+    <div class="grid grid--3">
+      {projects.map((p) => (
+        <ProjectCard
+          href={`/projects/${p.id}`}
+          title={p.data.title}
+          tagline={p.data.tagline}
+          heroImage={p.data.heroImage}
+          tech={p.data.tech}
+          status={p.data.status}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .site-section { margin-top: 2rem; }
+  .grid {
+    display: grid;
+    gap: 1.75rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
+</style>
