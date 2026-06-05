@@ -38,7 +38,7 @@ const statusClass: Record<string, string> = {
             {repo && <a class="btn" href={repo} target="_blank" rel="noopener">Source Code ↗</a>}
           </div>
         </div>
-        <div class="project__hero">
+        <div class={`project__hero project__hero--${project.id}`}>
           <img src={heroImage} alt={`${title} hero`} />
         </div>
       </div>
@@ -109,6 +109,12 @@ const statusClass: Record<string, string> = {
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     image-rendering: pixelated;
+  }
+  .project__hero--sightwords img {
+    height: 460px;
+    width: 100%;
+    object-fit: contain;
+    background: var(--c-bg-alt);
   }
   .project__body { margin: 3rem 0; }
   .project__gallery { margin-top: 3rem; }
