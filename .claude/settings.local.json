@@ -7,7 +7,10 @@
       "Bash(cp \"C:/projects/lmap/assets/images/backgrounds/night_club_interior.png\" C:/projects/blog/public/images/projects/lmap/night-club.png)",
       "Bash(cp \"C:/projects/lmap/assets/images/backgrounds/costume_department.png\" C:/projects/blog/public/images/projects/lmap/costume-dept.png)",
       "Bash(npm run:*)",
-      "Bash(grep -iE '\\\\.\\(png|jpg|jpeg|webp\\)$')"
+      "Bash(grep -iE '\\\\.\\(png|jpg|jpeg|webp\\)$')",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }

@@ -1,0 +1,24 @@
+---
+title: "Spirits Guide"
+tagline: "An AI-powered beverage categorization and search site that understands natural language."
+order: 6
+status: shipped
+url: "https://spirits-guide.com/"
+tech: ["React", "Node.js", "Custom NLP"]
+repo: "c:/projects/cocktails"
+heroImage: "/images/projects/spirits-guide/hero.png"
+---
+
+## What it is
+
+Spirits Guide categorizes and tags beverage data using AI analysis stored in JSON. Instead of relying on exact keyword matches, it features a custom natural language processing (NLP) engine that interprets user phrases—allowing queries like "something savory and salty" or "vodka but no lime".
+
+## How it works
+
+The search logic is entirely custom and doesn't rely on external NLP libraries. The custom engine processes queries by:
+- Normalizing text and tokenizing words
+- Handling aliases and synonyms
+- Detecting negations like "no" or "without"
+- Scoring cocktails against ingredients, moods, flavors, and styles
+
+This creates a highly intuitive and flexible search experience tailored specifically to beverage discovery.
